@@ -1,0 +1,153 @@
+/* src/components/Onboarding.css */
+
+.onboarding-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.onboarding-card {
+  background: white;
+  width: 100%;
+  max-width: 640px;
+  border-radius: 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  padding: 3.5rem 4rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.03);
+}
+
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.step-header::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #e2e8f0;
+  z-index: 0;
+  transform: translateY(-50%);
+}
+
+.step-indicator {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #94a3b8;
+  background: white;
+  border: 2px solid #e2e8f0;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.step-indicator.active {
+  border-color: #3b82f6;
+  color: #3b82f6;
+  box-shadow: 0 0 0 4px #eff6ff;
+}
+
+.step-indicator.completed {
+  border-color: #10b981;
+  background: #10b981;
+  color: white;
+}
+
+/* Loading Animation */
+.loading-orbit {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 3rem;
+}
+
+.orbit-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px; height: 80px;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 2;
+}
+
+.orbit-ring {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: 2px dashed #93c5fd;
+  border-radius: 50%;
+  animation: spin 6s linear infinite;
+  z-index: 1;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* Form Elements */
+.selectable-card {
+  border: 1px solid #e2e8f0;
+  padding: 1.25rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+}
+
+.selectable-card:hover {
+  border-color: #93c5fd;
+  background: #f8fafc;
+}
+
+.selectable-card.selected {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.selectable-card-icon {
+  background: #f1f5f9;
+  padding: 0.75rem;
+  border-radius: 8px;
+  color: #64748b;
+  transition: all 0.2s;
+}
+
+.selectable-card.selected .selectable-card-icon {
+  background: #3b82f6;
+  color: white;
+}
+
+/* Transition Container */
+.step-content {
+  animation: slideUp 0.4s ease forwards;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
