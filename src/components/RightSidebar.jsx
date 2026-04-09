@@ -1,7 +1,14 @@
-import React from 'react';
-import { Heart, Activity as TrendingUp } from 'lucide-react';
+import React, { useState } from 'react';
+import { Heart, Activity as TrendingUp, RefreshCw } from 'lucide-react';
 
-export default function RightSidebar() {
+export default function RightSidebar({ onNavigate }) {
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => setRefreshing(false), 1500);
+  };
+
   return (
     <aside className="right-panel">
       <div className="animate-fade-in" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -9,7 +16,15 @@ export default function RightSidebar() {
           <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0ea5e9' }}></div>
           Live system
         </div>
-        <button className="btn btn-primary" style={{ borderRadius: '99px', padding: '0.4rem 1.25rem' }}>Refresh</button>
+        <button
+          className="btn btn-primary"
+          onClick={handleRefresh}
+          disabled={refreshing}
+          style={{ borderRadius: '99px', padding: '0.4rem 1.25rem', display: 'flex', alignItems: 'center', gap: '5px', opacity: refreshing ? 0.75 : 1 }}
+        >
+          <RefreshCw size={13} style={{ animation: refreshing ? 'spin 0.8s linear infinite' : 'none' }} />
+          {refreshing ? 'Refreshing…' : 'Refresh'}
+        </button>
       </div>
 
       <div className="card animate-fade-in" style={{ padding: '1.5rem', background: '#f0f9ff', border: 'none', animationDelay: '0.1s' }}>
@@ -32,7 +47,11 @@ export default function RightSidebar() {
       <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
         <h3 style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-muted)', letterSpacing: '0.05em', marginBottom: '1rem' }}>Quick Signals</h3>
         
-        <div className="card" style={{ padding: '1.25rem', background: '#f0f9ff', border: 'none', marginBottom: '1rem' }}>
+        <div
+          className="card"
+          onClick={() => onNavigate && onNavigate('industry-signals')}
+          style={{ padding: '1.25rem', background: '#f0f9ff', border: 'none', marginBottom: '1rem', cursor: 'pointer' }}
+        >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 600, fontSize: '0.875rem', color: '#0f172a' }}>
               <TrendingUp size={16} color="#0ea5e9" />
@@ -56,7 +75,7 @@ export default function RightSidebar() {
           </div>
         </div>
 
-        <div className="card animate-fade-in" style={{ padding: '1.5rem', background: '#f0f9ff', border: 'none', animationDelay: '0.3s' }}>
+        <div className="card animate-fade-in" onClick={() => onNavigate && onNavigate('market-pulse')} style={{ padding: '1.5rem', background: '#f0f9ff', border: 'none', animationDelay: '0.3s', cursor: 'pointer' }}>
            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 600, fontSize: '0.875rem', color: '#0f172a', marginBottom: '1.5rem' }}>
               <TrendingUp size={16} color="#0ea5e9" />
               Market Pulse
